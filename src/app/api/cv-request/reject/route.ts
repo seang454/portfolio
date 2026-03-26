@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { sendEmail, verifySignedToken, type AdminDecisionPayload } from "@/lib/cv-request";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
   const token = searchParams.get("token");
 
   if (!token) {
@@ -25,15 +25,7 @@ export async function GET(request: Request) {
     `,
   });
 
-  return new NextResponse(
-    `
-      <html>
-        <body style="font-family: Arial, sans-serif; padding: 40px; color: #111827;">
-          <h2>Request rejected</h2>
-          <p>The requester has been notified that the CV request was not approved.</p>
-        </body>
-      </html>
-    `,
-    { headers: { "Content-Type": "text/html" } }
+  return NextResponse.redirect(
+    new URL("/cv-request-status?state=rejected", origin)
   );
 }

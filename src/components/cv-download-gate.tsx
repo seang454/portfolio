@@ -24,6 +24,8 @@ type CvGateCopy = {
   send: string;
   unlockTitle: string;
   unlockDescription: string;
+  fallbackTitle: string;
+  fallbackDescription: string;
   note: string;
 };
 
@@ -39,6 +41,7 @@ export default function CvDownloadGate({
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
+  const [submissionMode, setSubmissionMode] = useState<"api" | "mailto">("api");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLocating, setIsLocating] = useState(false);
   const [locationMessage, setLocationMessage] = useState("");
@@ -64,6 +67,7 @@ export default function CvDownloadGate({
     if (isOpen) {
       setCurrentStep(1);
       setRequestSubmitted(false);
+      setSubmissionMode("api");
       setErrorMessage("");
       setLocationMessage("");
     }
@@ -159,12 +163,15 @@ export default function CvDownloadGate({
       }
 
       if (data.fallback === "mailto") {
+        setSubmissionMode("mailto");
         const subject = encodeURIComponent("CV download request");
         const body = encodeURIComponent(
           `CV Download Request\n\nEmail: ${email}\nLocation: ${location}\nReason: ${reason}\n\nPlease review and verify this request.`
         );
 
         window.location.href = `mailto:${data.approverEmail || "pengseangsim210@gmail.com"}?subject=${subject}&body=${body}`;
+      } else {
+        setSubmissionMode("api");
       }
 
       setRequestSubmitted(true);
@@ -221,8 +228,14 @@ export default function CvDownloadGate({
             {requestSubmitted ? (
               <div className="cv-gate-success">
                 <div>
-                  <p className="cv-gate-success-title">{copy.unlockTitle}</p>
-                  <p className="cv-gate-success-description">{copy.unlockDescription}</p>
+                  <p className="cv-gate-success-title">
+                    {submissionMode === "mailto" ? copy.fallbackTitle : copy.unlockTitle}
+                  </p>
+                  <p className="cv-gate-success-description">
+                    {submissionMode === "mailto"
+                      ? copy.fallbackDescription
+                      : copy.unlockDescription}
+                  </p>
                 </div>
               </div>
             ) : (

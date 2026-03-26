@@ -52,6 +52,11 @@ export async function POST(request: Request) {
             <a href="${approveUrl}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#d97745;color:#fff;text-decoration:none;margin-right:12px;">Approve request</a>
             <a href="${rejectUrl}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#1f2937;color:#fff;text-decoration:none;">Reject request</a>
           </div>
+          <div style="margin-top: 18px; padding: 14px 16px; border-radius: 14px; background: #f7f8fb;">
+            <p style="margin: 0 0 8px; font-weight: 600;">If the buttons do not open correctly, copy these links:</p>
+            <p style="margin: 0 0 8px; word-break: break-all;"><strong>Approve:</strong> ${approveUrl}</p>
+            <p style="margin: 0; word-break: break-all;"><strong>Reject:</strong> ${rejectUrl}</p>
+          </div>
           <p style="margin-top: 18px; color:#6b7280;">This approval link expires in 24 hours.</p>
         </div>
       `,

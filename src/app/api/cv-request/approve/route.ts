@@ -33,20 +33,16 @@ export async function GET(request: Request) {
         <h2 style="margin-bottom: 12px;">Your CV request was approved</h2>
         <p>You can now download the CV using the secure link below.</p>
         <a href="${downloadUrl}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#d97745;color:#fff;text-decoration:none;">Download CV</a>
+        <div style="margin-top: 18px; padding: 14px 16px; border-radius: 14px; background: #f7f8fb;">
+          <p style="margin: 0 0 8px; font-weight: 600;">If the button does not open correctly, copy this link:</p>
+          <p style="margin: 0; word-break: break-all;">${downloadUrl}</p>
+        </div>
         <p style="margin-top: 18px; color:#6b7280;">This download link expires in 24 hours.</p>
       </div>
     `,
   });
 
-  return new NextResponse(
-    `
-      <html>
-        <body style="font-family: Arial, sans-serif; padding: 40px; color: #111827;">
-          <h2>Request approved</h2>
-          <p>The requester has been emailed a secure CV download link.</p>
-        </body>
-      </html>
-    `,
-    { headers: { "Content-Type": "text/html" } }
+  return NextResponse.redirect(
+    new URL("/cv-request-status?state=approved", origin)
   );
 }

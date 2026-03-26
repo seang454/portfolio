@@ -80,6 +80,9 @@ const copy = {
       unlockTitle: "Request sent",
       unlockDescription:
         "Your request has been sent for review. You will receive a secure CV download link by email after approval.",
+      fallbackTitle: "Email app opened",
+      fallbackDescription:
+        "Your email app was opened with the CV request details. Send that email to complete the request.",
       note: "Your request is emailed for review first. Download is only allowed after approval.",
     },
     stackTitle: "Core stack",
@@ -176,6 +179,9 @@ const copy = {
         unlockTitle: "បានផ្ញើសំណើហើយ",
         unlockDescription:
           "សំណើរបស់អ្នកត្រូវបានផ្ញើសម្រាប់ការពិនិត្យ។ បន្ទាប់ពីអនុម័ត អ្នកនឹងទទួលបានតំណទាញយក CV តាមអ៊ីមែល។",
+        fallbackTitle: "បានបើក email app",
+        fallbackDescription:
+          "Email app របស់អ្នកត្រូវបានបើកជាមួយព័ត៌មានសំណើ CV។ សូមផ្ញើ email នោះដើម្បីបញ្ចប់សំណើ។",
         note: "សំណើនេះត្រូវបានផ្ញើទៅពិនិត្យមុន ហើយអាចទាញយកបានតែបន្ទាប់ពីអនុម័តប៉ុណ្ណោះ។",
     },
     stackTitle: "Core stack",
