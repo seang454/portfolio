@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SIM PENGSEANG Portfolio
 
-## Getting Started
+Next.js portfolio with:
+- bilingual UI
+- theme switching
+- CV request + approval flow
+- Resend email integration
+- secure CV download links
 
-First, run the development server:
+## Local Development
+
+Run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## CV File Path
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The current CV download target is:
 
-## Learn More
+[`public/information/image.png`](D:\personalInfo\myporfolio\public\information\image.png)
 
-To learn more about Next.js, take a look at the following resources:
+Public URL:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```txt
+/information/image.png
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If you replace it with a PDF later, also update:
 
-## Deploy on Vercel
+```env
+CV_DOWNLOAD_PATH=/information/your-cv-file.pdf
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Environment Variables
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Create `.env.local` for local development.
+
+Required values:
+
+```env
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM_EMAIL=CV Request <your-verified-sender@yourdomain.com>
+CV_APPROVER_EMAIL=pengseangsim210@gmail.com
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+CV_DOWNLOAD_SECRET=put-a-long-random-secret-here
+CV_DOWNLOAD_PATH=/information/image.png
+```
+
+Notes:
+- `RESEND_API_KEY` must come from your Resend account.
+- `RESEND_FROM_EMAIL` should be a sender verified in Resend for production.
+- `NEXT_PUBLIC_SITE_URL` must be your real public site URL on Vercel in production.
+- `CV_DOWNLOAD_SECRET` should be a long random string.
+
+## Vercel Deployment
+
+Deploy the project to Vercel, then add the same environment variables in:
+
+`Project Settings -> Environment Variables`
+
+Use production values like:
+
+```env
+NEXT_PUBLIC_SITE_URL=https://your-portfolio.vercel.app
+CV_DOWNLOAD_PATH=/information/image.png
+```
+
+Important:
+- `localhost` links only work on your machine.
+- if you want request approval and secure download links to work for real users, the site must be deployed publicly
+- the sender email in Resend must be valid for your account and domain rules
+
+## CV Approval Flow
+
+Current flow:
+
+1. User opens `Download CV`
+2. User fills email, location, and reason
+3. Site emails the request to `CV_APPROVER_EMAIL`
+4. You click `Approve` or `Reject`
+5. On approval, the requester receives a secure download link by email
+
+Fallback:
+- if Resend is not configured, the app falls back to `mailto`
+- in that mode, the email is not sent automatically by the website
+
+## Build Note
+
+The project compiles successfully, but on this Windows environment `next build` may end with:
+
+```txt
+Error: spawn EPERM
+```
+
+That appears to be an environment-specific Windows process issue, not a TypeScript compile error in the app itself.
