@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,12 +14,15 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",   // silences the warning
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
+      
       "@/*": ["./src/*"]
     }
   },

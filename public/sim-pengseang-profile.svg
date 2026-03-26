@@ -1,0 +1,37 @@
+<svg width="680" height="840" viewBox="0 0 680 840" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="680" height="840" rx="56" fill="url(#bg)"/>
+  <circle cx="554" cy="126" r="98" fill="url(#orb1)" fill-opacity="0.9"/>
+  <circle cx="140" cy="735" r="132" fill="url(#orb2)" fill-opacity="0.8"/>
+  <rect x="72" y="76" width="536" height="688" rx="42" fill="#FFFFFF" fill-opacity="0.12" stroke="#FFFFFF" stroke-opacity="0.25"/>
+  <circle cx="340" cy="286" r="126" fill="url(#portraitGlow)"/>
+  <circle cx="340" cy="266" r="96" fill="#162537"/>
+  <path d="M255 394C255 343.19 296.19 302 347 302H333C383.81 302 425 343.19 425 394V411H255V394Z" fill="#1D3550"/>
+  <rect x="197" y="435" width="286" height="196" rx="98" fill="#203D5F"/>
+  <path d="M255 458C293 493 387 494 426 458" stroke="#59C6B8" stroke-width="10" stroke-linecap="round"/>
+  <rect x="126" y="110" width="170" height="50" rx="25" fill="#FFFFFF" fill-opacity="0.12"/>
+  <text x="150" y="143" fill="#F9FAFB" font-size="24" font-family="Arial, Helvetica, sans-serif" font-weight="700">SIM PENGSEANG</text>
+  <text x="124" y="664" fill="#F9FAFB" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">FULL-STACK</text>
+  <text x="124" y="714" fill="#A7B4C5" font-size="28" font-family="Arial, Helvetica, sans-serif">Developer • DevOps Learner</text>
+  <text x="124" y="754" fill="#A7B4C5" font-size="22" font-family="Arial, Helvetica, sans-serif">Replace this artwork with your real portrait anytime.</text>
+  <rect x="462" y="620" width="114" height="114" rx="28" fill="#FFFFFF" fill-opacity="0.11" stroke="#FFFFFF" stroke-opacity="0.25"/>
+  <text x="491" y="690" fill="#FF8B5D" font-size="48" font-family="Arial, Helvetica, sans-serif" font-weight="700">SP</text>
+  <defs>
+    <linearGradient id="bg" x1="76" y1="74" x2="606" y2="790" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#081221"/>
+      <stop offset="0.48" stop-color="#10233A"/>
+      <stop offset="1" stop-color="#17304D"/>
+    </linearGradient>
+    <radialGradient id="orb1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(554 126) rotate(90) scale(98)">
+      <stop stop-color="#FF8B5D"/>
+      <stop offset="1" stop-color="#FF8B5D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(140 735) rotate(90) scale(132)">
+      <stop stop-color="#54C6B7"/>
+      <stop offset="1" stop-color="#54C6B7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="portraitGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 286) rotate(90) scale(126)">
+      <stop stop-color="#FF8B5D" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="#FF8B5D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

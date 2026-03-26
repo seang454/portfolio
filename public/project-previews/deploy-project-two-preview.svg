@@ -1,0 +1,30 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="40" fill="#07111F"/>
+  <rect x="48" y="48" width="1104" height="534" rx="32" fill="url(#bg)"/>
+  <rect x="108" y="120" width="984" height="390" rx="30" fill="rgba(8,16,30,0.74)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="154" y="166" width="214" height="18" rx="9" fill="#315E7D"/>
+  <rect x="154" y="202" width="168" height="18" rx="9" fill="#27435A"/>
+  <rect x="154" y="264" width="214" height="112" rx="22" fill="rgba(255,255,255,0.06)"/>
+  <rect x="404" y="264" width="214" height="112" rx="22" fill="rgba(255,255,255,0.06)"/>
+  <rect x="654" y="264" width="214" height="112" rx="22" fill="rgba(255,255,255,0.06)"/>
+  <rect x="904" y="264" width="142" height="112" rx="22" fill="rgba(255,255,255,0.06)"/>
+  <path d="M218 432C310 370 418 358 518 392C612 424 710 420 810 378C885 346 953 335 1034 348" stroke="url(#line)" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="220" cy="432" r="22" fill="#FF8B5D"/>
+  <circle cx="514" cy="392" r="22" fill="#54C6B7"/>
+  <circle cx="810" cy="378" r="22" fill="#3D93FF"/>
+  <text x="152" y="438" fill="#EDF2F7" font-size="54" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Deploy Project Two</text>
+  <text x="152" y="482" fill="#A3AFC2" font-size="24" font-family="Segoe UI, Arial, sans-serif">Release-focused deployment project with production-style publishing</text>
+  <text x="152" y="102" fill="#FFB188" font-size="22" font-family="Segoe UI, Arial, sans-serif" font-weight="700">LIVE DEPLOYMENT</text>
+  <defs>
+    <linearGradient id="bg" x1="81" y1="60" x2="1113" y2="556" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E2036"/>
+      <stop offset="0.55" stop-color="#0A1728"/>
+      <stop offset="1" stop-color="#08111E"/>
+    </linearGradient>
+    <linearGradient id="line" x1="218" y1="432" x2="1034" y2="348" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8B5D"/>
+      <stop offset="0.5" stop-color="#54C6B7"/>
+      <stop offset="1" stop-color="#3D93FF"/>
+    </linearGradient>
+  </defs>
+</svg>
