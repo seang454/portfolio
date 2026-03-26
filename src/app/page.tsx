@@ -279,7 +279,20 @@ const projectStacks = [
   ["Jenkins", "GitHub Actions", "Docker", "Kubernetes"],
   ["Prometheus", "Grafana", "Docker", "Kubernetes"],
 ] as const;
-const liveProjects = [
+
+type LiveProject = {
+  title: string;
+  summary: string;
+  href: string;
+  cta: string;
+  domain: string;
+  status: string;
+  metadataTitle: string;
+  metadataDescription: string;
+  image?: string;
+};
+
+const liveProjects: readonly LiveProject[] = [
   {
     title: "DocuHub",
     summary:
@@ -317,7 +330,7 @@ const liveProjects = [
     metadataDescription:
       "A deployed university-style homework project published on Vercel.",
   },
-] as const;
+];
 const techStackRows = [techStack.slice(0, 6), techStack.slice(6)] as const;
 
 const heroOrbitOuter = [SiDocker, SiKubernetes, SiGithubactions, SiPrometheus] as const;

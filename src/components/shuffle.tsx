@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -63,7 +63,7 @@ export default function Shuffle({
   triggerOnHover = false,
   delay = 0,
 }: ShuffleProps) {
-  const rootRef = useRef<HTMLElement | null>(null);
+  const wrapperRef = useRef<HTMLSpanElement | null>(null);
   const charRefs = useRef<Array<HTMLSpanElement | null>>([]);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const hasPlayedRef = useRef(false);
@@ -77,7 +77,7 @@ export default function Shuffle({
 
   useGSAP(
     () => {
-      const element = rootRef.current;
+      const element = wrapperRef.current?.querySelector("[data-shuffle-root]") as HTMLElement | null;
       const targets = charRefs.current.filter(Boolean) as HTMLSpanElement[];
       if (!element || !targets.length) return;
 
@@ -236,7 +236,7 @@ export default function Shuffle({
       };
     },
     {
-      scope: rootRef,
+      scope: wrapperRef,
       dependencies: [
         animationMode,
         chars,
@@ -266,23 +266,27 @@ export default function Shuffle({
   const Tag = tag;
 
   return (
-    <Tag
-      ref={rootRef}
-      className={className}
-      style={{ ...style, textAlign, visibility: isReady ? "visible" : "visible" }}
-      aria-label={text}
-    >
-      {chars.map((char, index) => (
-        <span
-          key={`${char}-${index}`}
-          ref={(node) => {
-            charRefs.current[index] = node;
-          }}
-          className="inline-block whitespace-pre will-change-transform"
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
-    </Tag>
+    <span ref={wrapperRef}>
+      {React.createElement(
+        Tag,
+        {
+          className,
+          style: { ...style, textAlign, visibility: isReady ? "visible" : "visible" },
+          "aria-label": text,
+          "data-shuffle-root": "true",
+        },
+        chars.map((char, index) => (
+          <span
+            key={`${char}-${index}`}
+            ref={(node) => {
+              charRefs.current[index] = node;
+            }}
+            className="inline-block whitespace-pre will-change-transform"
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))
+      )}
+    </span>
   );
 }

@@ -17,7 +17,7 @@ type CvGateCopy = {
   trigger: string;
   title: string;
   description: string;
-  steps: [string, string, string];
+  steps: readonly [string, string, string];
   email: string;
   location: string;
   reason: string;
