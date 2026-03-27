@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ExternalLink,
   FileText,
@@ -34,6 +35,7 @@ export default function CvDownloadGate({
 }: {
   copy: CvGateCopy;
 }) {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [email, setEmail] = useState("");
@@ -51,6 +53,10 @@ export default function CvDownloadGate({
   } | null>(null);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (!isOpen) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -61,6 +67,17 @@ export default function CvDownloadGate({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -197,7 +214,9 @@ export default function CvDownloadGate({
         {copy.trigger}
       </Button>
 
-      {!isOpen ? null : (
+      {!mounted || !isOpen
+        ? null
+        : createPortal(
         <div className="cv-modal" role="dialog" aria-modal="true" aria-label={copy.title}>
           <button
             type="button"
@@ -225,117 +244,120 @@ export default function CvDownloadGate({
               </button>
             </div>
 
-            {requestSubmitted ? (
-              <div className="cv-gate-success">
-                <div>
-                  <p className="cv-gate-success-title">
-                    {submissionMode === "mailto" ? copy.fallbackTitle : copy.unlockTitle}
-                  </p>
-                  <p className="cv-gate-success-description">
-                    {submissionMode === "mailto"
-                      ? copy.fallbackDescription
-                      : copy.unlockDescription}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <Stepper
-                initialStep={1}
-                onStepChange={(step) => setCurrentStep(step)}
-                onFinalStepCompleted={handleFinalStepCompleted}
-                completedContent={null}
-                nextButtonText="Next"
-                completeButtonText={isSubmitting ? "Sending..." : copy.send}
-                backButtonText="Back"
-                nextButtonProps={{ disabled: !canProceed || isSubmitting }}
-                stepCircleContainerClassName="cv-stepper-shell"
-              >
-                <Step>
-                  <div className="cv-step-content">
-                    <label className="block">
-                      <span className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
-                        <Mail className="h-4 w-4 text-[var(--accent-strong)]" />
-                        {copy.email}
-                      </span>
-                      <input
-                        type="email"
-                        className="input-shell"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        placeholder="you@example.com"
-                        required
-                      />
-                    </label>
+            <div className="cv-modal-body">
+              {requestSubmitted ? (
+                <div className="cv-gate-success">
+                  <div>
+                    <p className="cv-gate-success-title">
+                      {submissionMode === "mailto" ? copy.fallbackTitle : copy.unlockTitle}
+                    </p>
+                    <p className="cv-gate-success-description">
+                      {submissionMode === "mailto"
+                        ? copy.fallbackDescription
+                        : copy.unlockDescription}
+                    </p>
                   </div>
-                </Step>
+                </div>
+              ) : (
+                <Stepper
+                  initialStep={1}
+                  onStepChange={(step) => setCurrentStep(step)}
+                  onFinalStepCompleted={handleFinalStepCompleted}
+                  completedContent={null}
+                  nextButtonText="Next"
+                  completeButtonText={isSubmitting ? "Sending..." : copy.send}
+                  backButtonText="Back"
+                  nextButtonProps={{ disabled: !canProceed || isSubmitting }}
+                  stepCircleContainerClassName="cv-stepper-shell"
+                >
+                  <Step>
+                    <div className="cv-step-content">
+                      <label className="block">
+                        <span className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
+                          <Mail className="h-4 w-4 text-[var(--accent-strong)]" />
+                          {copy.email}
+                        </span>
+                        <input
+                          type="email"
+                          className="input-shell"
+                          value={email}
+                          onChange={(event) => setEmail(event.target.value)}
+                          placeholder="you@example.com"
+                          required
+                        />
+                      </label>
+                    </div>
+                  </Step>
 
-                <Step>
-                  <div className="cv-step-content">
-                    <label className="block">
-                      <span className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
-                        <MapPin className="h-4 w-4 text-[var(--accent-strong)]" />
-                        {copy.location}
-                      </span>
-                      <input
-                        className="input-shell"
-                        value={location}
-                        onChange={(event) => setLocation(event.target.value)}
-                        placeholder={copy.location}
-                        required
-                      />
-                    </label>
-                    <div className="cv-location-actions">
-                      <button
-                        type="button"
-                        className="cv-location-action"
-                        onClick={handleUseCurrentLocation}
-                        disabled={isLocating}
-                      >
-                        <LocateFixed className="h-4 w-4" />
-                        {isLocating ? "Detecting..." : "Use current location"}
-                      </button>
-
-                      {locationCoords ? (
-                        <a
-                          href={`https://www.google.com/maps?q=${locationCoords.lat},${locationCoords.lng}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="cv-location-link"
+                  <Step>
+                    <div className="cv-step-content">
+                      <label className="block">
+                        <span className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground">
+                          <MapPin className="h-4 w-4 text-[var(--accent-strong)]" />
+                          {copy.location}
+                        </span>
+                        <input
+                          className="input-shell"
+                          value={location}
+                          onChange={(event) => setLocation(event.target.value)}
+                          placeholder={copy.location}
+                          required
+                        />
+                      </label>
+                      <div className="cv-location-actions">
+                        <button
+                          type="button"
+                          className="cv-location-action"
+                          onClick={handleUseCurrentLocation}
+                          disabled={isLocating}
                         >
-                          <MapPin className="h-4 w-4" />
-                          Open map
-                          <ExternalLink className="h-3.5 w-3.5" />
-                        </a>
+                          <LocateFixed className="h-4 w-4" />
+                          {isLocating ? "Detecting..." : "Use current location"}
+                        </button>
+
+                        {locationCoords ? (
+                          <a
+                            href={`https://www.google.com/maps?q=${locationCoords.lat},${locationCoords.lng}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="cv-location-link"
+                          >
+                            <MapPin className="h-4 w-4" />
+                            Open map
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        ) : null}
+                      </div>
+                      {locationMessage ? (
+                        <p className="cv-location-message">{locationMessage}</p>
                       ) : null}
                     </div>
-                    {locationMessage ? (
-                      <p className="cv-location-message">{locationMessage}</p>
-                    ) : null}
-                  </div>
-                </Step>
+                  </Step>
 
-                <Step>
-                  <div className="cv-step-content">
-                    <label className="block">
-                      <span className="mb-2 block text-sm font-medium text-foreground">
-                        {copy.reason}
-                      </span>
-                      <textarea
-                        className="input-shell min-h-32 resize-none"
-                        value={reason}
-                        onChange={(event) => setReason(event.target.value)}
-                        placeholder={copy.reason}
-                        required
-                      />
-                    </label>
-                    <p className="cv-gate-note mt-4">{copy.note}</p>
-                    {errorMessage ? <p className="cv-gate-error">{errorMessage}</p> : null}
-                  </div>
-                </Step>
-              </Stepper>
-            )}
+                  <Step>
+                    <div className="cv-step-content">
+                      <label className="block">
+                        <span className="mb-2 block text-sm font-medium text-foreground">
+                          {copy.reason}
+                        </span>
+                        <textarea
+                          className="input-shell min-h-32 resize-none"
+                          value={reason}
+                          onChange={(event) => setReason(event.target.value)}
+                          placeholder={copy.reason}
+                          required
+                        />
+                      </label>
+                      <p className="cv-gate-note mt-4">{copy.note}</p>
+                      {errorMessage ? <p className="cv-gate-error">{errorMessage}</p> : null}
+                    </div>
+                  </Step>
+                </Stepper>
+              )}
+            </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

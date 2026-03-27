@@ -1523,6 +1523,7 @@ html[lang="km"] {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    overflow-y: auto;
   }
 
   .cv-modal-backdrop {
@@ -1530,17 +1531,17 @@ html[lang="km"] {
     inset: 0;
     z-index: 9991;
     background:
-      radial-gradient(circle at top, rgba(61, 147, 255, 0.08), transparent 35%),
-      rgba(7, 17, 31, 0.18);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+      radial-gradient(circle at top, rgba(61, 147, 255, 0.12), transparent 32%),
+      linear-gradient(180deg, rgba(245, 240, 232, 0.88), rgba(245, 240, 232, 0.96));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .cv-modal-card {
     position: relative;
     z-index: 9992;
     width: min(100%, 39rem);
-    max-height: min(42rem, calc(100vh - 2rem));
+    max-height: min(42rem, calc(100dvh - 2rem));
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1548,8 +1549,8 @@ html[lang="km"] {
     border-radius: 2rem;
     background:
       radial-gradient(circle at top right, rgba(61, 147, 255, 0.12), transparent 26%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08)),
-      color-mix(in srgb, var(--card) 92%, white 8%);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86)),
+      #fffdf9;
     padding: 1.15rem 1.15rem 1rem;
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
@@ -1567,14 +1568,21 @@ html[lang="km"] {
   }
 
   .cv-modal-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.9rem;
-      margin-bottom: 0.9rem;
-      flex: none;
-      padding-bottom: 0.9rem;
-      border-bottom: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
-    }
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-bottom: 0.9rem;
+    flex: none;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+  }
+
+  .cv-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 0.15rem;
+  }
 
   .cv-modal-close {
     display: inline-flex;
@@ -1634,16 +1642,15 @@ html[lang="km"] {
     display: flex;
     flex-direction: column;
     min-height: 24rem;
+    box-sizing: border-box;
     box-shadow: none;
   }
 
   .stepper-shell {
-    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     min-height: 100%;
-    padding-bottom: 4.25rem;
   }
 
   .stepper-head {
@@ -1673,23 +1680,22 @@ html[lang="km"] {
   }
 
   .stepper-content {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      padding-top: 0.85rem;
-      padding-right: 0.15rem;
-    }
+    flex: 1;
+    min-height: 0;
+    overflow: visible;
+    padding-top: 0.85rem;
+    padding-bottom: 1rem;
+  }
 
   .stepper-pane {
     padding: 0 0 0.1rem;
   }
 
   .stepper-footer {
-    position: absolute;
-    right: 0;
+    position: sticky;
     bottom: 0;
-    left: 0;
     z-index: 20;
+    margin-top: auto;
     padding: 0.75rem 0 0.35rem;
     background:
       linear-gradient(180deg, rgba(245, 240, 232, 0), rgba(245, 240, 232, 0.9) 26%, rgba(245, 240, 232, 0.98));
@@ -2030,17 +2036,17 @@ html[lang="km"] {
 }
 
 .dark .cv-modal-card {
-    background:
-      radial-gradient(circle at top right, rgba(61, 147, 255, 0.14), transparent 28%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-      rgba(8, 16, 30, 0.9);
-  }
+  background:
+    radial-gradient(circle at top right, rgba(61, 147, 255, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(15, 24, 41, 0.96), rgba(8, 16, 30, 0.94)),
+    rgba(8, 16, 30, 0.98);
+}
 
 .dark .cv-modal-backdrop {
-    background:
-      radial-gradient(circle at top, rgba(61, 147, 255, 0.1), transparent 35%),
-      rgba(7, 17, 31, 0.34);
-  }
+  background:
+    radial-gradient(circle at top, rgba(61, 147, 255, 0.12), transparent 35%),
+    linear-gradient(180deg, rgba(7, 17, 31, 0.88), rgba(7, 17, 31, 0.96));
+}
 
 .dark .cv-gate-success {
     background:
@@ -2086,6 +2092,52 @@ html[lang="km"] {
 }
 
 @media (max-width: 640px) {
+  .cv-modal {
+    align-items: flex-start;
+    padding: 0.75rem;
+  }
+
+  .cv-modal-card {
+    width: 100%;
+    max-height: calc(100dvh - 1.5rem);
+    border-radius: 1.6rem;
+    padding: 0.95rem 0.95rem 0.85rem;
+  }
+
+  .cv-modal-header {
+    gap: 0.7rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .cv-gate-title {
+    font-size: 1rem;
+  }
+
+  .cv-gate-description {
+    font-size: 0.86rem;
+  }
+
+  .cv-stepper-shell {
+    padding: 0.85rem 0.8rem 0.75rem;
+  }
+
+  .stepper-head {
+    gap: 0.25rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.8rem;
+  }
+
+  .stepper-indicator-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+  }
+
+  .stepper-footer {
+    padding-top: 0.65rem;
+  }
+
   .hero-shell {
     min-height: auto;
     padding: 1.2rem;
