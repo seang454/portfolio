@@ -28,8 +28,9 @@ export default function ClientProviders({ children }: { children: React.ReactNod
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="dark"
-      enableSystem={false}
+      defaultTheme="system"
+      enableSystem={true}
+      disableTransitionOnChange={false}
     >
       <I18nextProvider i18n={i18n}>
         {children}

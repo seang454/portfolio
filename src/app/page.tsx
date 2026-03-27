@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
+  Activity,
   BriefcaseBusiness,
+  Boxes,
   Database,
   FileCode2,
   Globe,
@@ -423,6 +425,23 @@ export default function Home() {
   const { i18n } = useTranslation();
   const locale = i18n.language === "kh" ? "kh" : "en";
   const t = copy[locale];
+  const heroHighlights = [
+    {
+      label: locale === "kh" ? "Build" : "Build",
+      value: locale === "kh" ? "APIs + UI" : "APIs + UI",
+      icon: <LayoutGrid className="h-4 w-4" />,
+    },
+    {
+      label: locale === "kh" ? "Ship" : "Ship",
+      value: locale === "kh" ? "Docker + CI/CD" : "Docker + CI/CD",
+      icon: <Boxes className="h-4 w-4" />,
+    },
+    {
+      label: locale === "kh" ? "Observe" : "Observe",
+      value: locale === "kh" ? "Metrics + Reliability" : "Metrics + Reliability",
+      icon: <Activity className="h-4 w-4" />,
+    },
+  ];
   const aboutHighlights = [
     {
       title: "Full-Stack",
@@ -516,6 +535,18 @@ export default function Home() {
                   </p>
                 </HeroBlurIn>
 
+                <HeroBlurIn delay={0.38} className="hero-highlight-grid">
+                  {heroHighlights.map((item) => (
+                    <div key={item.label} className="hero-highlight-card">
+                      <span className="hero-highlight-icon">{item.icon}</span>
+                      <div className="hero-highlight-copy">
+                        <span className="hero-highlight-label">{item.label}</span>
+                        <span className="hero-highlight-value">{item.value}</span>
+                      </div>
+                    </div>
+                  ))}
+                </HeroBlurIn>
+
                 <HeroBlurIn delay={0.42} className="pt-2 flex flex-col gap-4 sm:flex-row">
                   <Button
                     asChild
@@ -538,36 +569,43 @@ export default function Home() {
                 </HeroBlurIn>
               </div>
 
-                <div className="relative">
-                  <div className="hero-orbit-stage">
-                    <div className="hero-orbit-center" aria-hidden="true">
-                      <div className="hero-orbit-center-core" />
-                    </div>
-                    <OrbitingCircles
-                      radius={202}
-                      iconSize={78}
-                      speed={0.62}
-                      className="hero-orbit-node"
-                    >
-                      {heroOrbitOuter.map((Icon, index) => (
-                        <div key={`outer-${index}`} className="hero-orbit-chip">
-                          <Icon className="h-8 w-8 text-[var(--accent-strong)]" />
-                        </div>
-                      ))}
-                    </OrbitingCircles>
-                    <OrbitingCircles
-                      radius={128}
-                      iconSize={70}
-                      speed={0.78}
-                      reverse
-                      className="hero-orbit-node"
+              <div className="relative">
+                <div className="hero-orbit-stage">
+                  <div className="hero-orbit-ring hero-orbit-ring-outer" aria-hidden="true" />
+                  <div className="hero-orbit-ring hero-orbit-ring-inner" aria-hidden="true" />
+                  <div className="hero-orbit-glow hero-orbit-glow-a" aria-hidden="true" />
+                  <div className="hero-orbit-glow hero-orbit-glow-b" aria-hidden="true" />
+                  <div className="hero-orbit-center" aria-hidden="true">
+                    <div className="hero-orbit-center-core" />
+                  </div>
+                  <OrbitingCircles
+                    radius={202}
+                    iconSize={78}
+                    speed={0.62}
+                    className="hero-orbit-node"
+                  >
+                    {heroOrbitOuter.map((Icon, index) => (
+                      <div key={`outer-${index}`} className="hero-orbit-chip">
+                        <Icon className="h-8 w-8 text-[var(--accent-strong)]" />
+                      </div>
+                    ))}
+                  </OrbitingCircles>
+                  <OrbitingCircles
+                    radius={128}
+                    iconSize={70}
+                    speed={0.78}
+                    reverse
+                    className="hero-orbit-node"
+                  >
+                    {heroOrbitInner.map((Icon, index) => (
+                      <div
+                        key={`inner-${index}`}
+                        className="hero-orbit-chip hero-orbit-chip-inner"
                       >
-                        {heroOrbitInner.map((Icon, index) => (
-                          <div key={`inner-${index}`} className="hero-orbit-chip hero-orbit-chip-inner">
-                            <Icon className="h-7 w-7 text-[#3d93ff]" />
-                          </div>
-                        ))}
-                     </OrbitingCircles>
+                        <Icon className="h-7 w-7 text-[#3d93ff]" />
+                      </div>
+                    ))}
+                  </OrbitingCircles>
                 </div>
               </div>
             </div>
