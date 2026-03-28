@@ -35,6 +35,8 @@ If you replace it with a PDF later, also update:
 CV_DOWNLOAD_PATH=/information/your-cv-file.pdf
 ```
 
+The secure approval link now returns the configured file as a download attachment, so approved requesters can download it directly from the email link.
+
 ## Environment Variables
 
 Create `.env.local` for local development.
@@ -83,6 +85,7 @@ Current flow:
 3. Site emails the request to `CV_APPROVER_EMAIL`
 4. You click `Approve` or `Reject`
 5. On approval, the requester receives a secure download link by email
+6. Clicking that secure link downloads the configured CV file
 
 Fallback:
 - if Resend is not configured, the app falls back to `mailto`
